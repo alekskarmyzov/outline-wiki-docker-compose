@@ -1,1 +1,4 @@
-env*
+env.google
+env.minio
+env.outline
+env.slack
