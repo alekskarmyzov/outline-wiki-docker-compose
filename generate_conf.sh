@@ -62,6 +62,30 @@ function create_slack_env {
     env_add SLACK_VERIFICATION_TOKEN ${SLACK_VERIFICATION_TOKEN_INP:-SLACK_VERIFICATION_TOKEN} env.slack
 }
 
+function create_google_env {
+    # get url from outline env
+    set -o allexport; source env.outline; set +o allexport
+    echo "Configure Google Auth"
+    # echo "=> Open https://api.slack.com/apps and Create New App"
+    # echo "=> After creating, scroll down to 'Add features and functionality' -> 'Permissions'"
+    # echo "=> '${URL}/auth/slack.callback'"
+    # read -p "Copy the above to Redirect URLs. Press Enter to continue..."
+
+    # echo "=> Save, go back and scroll down to 'App Credentials'"
+
+    if test -f env.google; then
+        set -o allexport; source env.google; set +o allexport
+    fi
+   
+    read -p "Enter Client ID [$GOOGLE_KEY] : " GOOGLE_KEY_INP
+    read -p "Enter Client Secret [$GOOGLE_SECRET]: " GOOGLE_SECRET_INP
+
+    touch env.google
+    env_add GOOGLE_CLIENT_ID ${GOOGLE_KEY_INP:-GOOGLE_KEY} env.google
+    env_add GOOGLE_CLIENT_SECRET ${GOOGLE_SECRET_INP:-GOOGLE_SECRET} env.google
+    
+}
+
 function create_env_files {
     read -p "Enter hostname [localhost]: " HOST
     HOST=${HOST:-localhost}
