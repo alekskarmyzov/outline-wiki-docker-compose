@@ -20,7 +20,7 @@ sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-
 sudo chmod +x /usr/local/bin/docker-compose
 
 echo -e "\nINSTALLING AWS CLI\n"
-sudo apy-get install awscli -y
+sudo apt-get install awscli -y
 
 echo -e "\nINSTALLING MAKE\n"
-sudo apy-get install make -y
+sudo apt-get install make -y
