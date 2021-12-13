@@ -1,0 +1,17 @@
+version: '3'
+services:
+  nginx:
+    build: .
+    container_name: nginx-for-certs
+    environment:
+      - DOMAIN
+      - AWS_CONFIG_FILE=/.aws/credentials
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/orbit.conf
+      - ./letsencrypt/:/etc/letsencrypt/
+      - $HOME/.aws/credentials:/.aws/credentials:ro
+    entrypoint: ./entrypoint.sh
+    restart: "no"

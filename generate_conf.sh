@@ -197,4 +197,22 @@ function init_data_dirs {
     mkdir -p data/minio_root/${AWS_S3_UPLOAD_BUCKET_NAME} data/pgdata
 }
 
+function letsencrypt {
+    echo -e "\nGENERATING SSL CERTIFICATES WITH CERTBOT\n"
+    
+    # get url from outline env
+    read -p "Enter domain [outline.org.com]: " DOMAIN
+    DOMAIN=${DOMAIN:-outline.org.com}
+    
+    docker-compose -f data/nginx/docker-compose.yml build
+    DOMAIN=${DOMAIN} docker-compose -f data/nginx/docker-compose.yml up
+    echo -e "\nSSL CERTIFICATES ARE GENERATED\n"
+    DOMAIN=${DOMAIN} docker-compose -f data/nginx/docker-compose.yml down
+    
+    rm -f ./data/certs/public.crt
+    sudo cp ./data/nginx/letsencrypt/live/${DOMAIN}/fullchain.pem ./data/certs/public.crt
+    rm -f ./data/certs/private.key
+    sudo cp ./data/nginx/letsencrypt/live/${DOMAIN}/privkey.pem ./data/certs/private.key
+}
+
 $*

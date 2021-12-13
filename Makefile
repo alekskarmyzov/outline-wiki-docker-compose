@@ -40,8 +40,14 @@ clean-docker: stop
 clean-conf:
 	rm -rfv data/certs/* env.*
 	rm -rf data/minio_root/.minio.sys/
+	sudo rm -rf data/nginx/letsencrypt/
+	sudo rm -rf data/pgdata data/minio_root
 
 clean-data:
 	@bash generate_conf.sh delete_data
 
 clean: clean-docker clean-conf
+
+letsencrypt:
+	@bash generate_conf.sh letsencrypt
+	
