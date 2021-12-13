@@ -24,3 +24,7 @@ sudo apt-get install awscli -y
 
 echo -e "\nINSTALLING MAKE\n"
 sudo apt-get install make -y
+
+echo -e "\nCORRECTING PRIVELGES\n"
+sudo usermod -aG docker $USER
+echo -e "[ATTENTION] You should restart your terminal to update user's permissions"
