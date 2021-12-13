@@ -21,3 +21,6 @@ sudo chmod +x /usr/local/bin/docker-compose
 
 echo -e "\nINSTALLING AWS CLI\n"
 sudo apy-get install awscli -y
+
+echo -e "\nINSTALLING MAKE\n"
+sudo apy-get install make -y
